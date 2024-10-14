@@ -43,7 +43,7 @@ record_button = Button(record_button_ax, 'Record', color='lightgoldenrodyellow',
 
 # Init recording status and buffer
 recording = False
-recorded_audio = []
+recorded_audio = [];
 
 # Create output directory if it doesn't exist
 os.makedirs("output", exist_ok=True)
@@ -51,16 +51,15 @@ os.makedirs("output", exist_ok=True)
 
 # Callback function to update the plot
 def audio_callback(indata, frames, time, status):
-    # if status:
-    #     print(status)
     global y, recorded_audio, accumulated_audio
+    
     y = np.roll(y, -frames)
     y[-frames:] = indata[:, 0]
     
     # Record audio if recording is enabled
     if recording:
         recorded_audio.extend(indata[:, 0])
-    
+
 
 # Update all plots
 def update_plots(frame):
@@ -132,7 +131,7 @@ def main():
 
 
     # Start the microphone stream
-    stream = sd.InputStream(callback=audio_callback, channels=1, samplerate=sample_rate)
+    stream = sd.InputStream(callback=audio_callback, channels=2, samplerate=sample_rate)
     with stream:
         ani = FuncAnimation(fig, update_plots, interval=25)
         plt.show()
