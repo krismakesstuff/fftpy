@@ -1,4 +1,4 @@
-# Real-Time Audio Recording and Transcription
+# Real-Time Audio Spectrogram with faster_whisper Transcription
 
 A python app that gives you a real-time spectrogram of a mono audio feed. Record a snippet with spacebar and it will use faster_whisper to transcribe speech-to-text. 
 
