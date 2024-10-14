@@ -14,7 +14,7 @@ import atexit
 # Parameters
 sample_rate = 44100  # Sample rate of the microphone
 duration = 1  # Duration of each audio chunk in seconds
-nfft = 256  # Number of FFT points
+nfft = 2048  # Number of FFT points
 buffer_duration = 0.5  # Duration of audio data to collect before sending to Whisper
 
 # Initialize Faster Whisper model
@@ -86,6 +86,18 @@ def audio_callback(indata, frames, time, status):
     global y, recorded_audio, accumulated_audio
     y = np.roll(y, -frames)
     y[-frames:] = indata[:, 0]
+    
+    # temp = indata[:, 0]
+
+    # ythreshold = 0.25
+
+    # for i in range(len(temp)):
+    #     if temp[i] < ythreshold:
+    #         temp[i] = 0
+
+    # y[-frames:] = temp
+
+
 
     # Add audio chunk to buffer
     accumulated_audio.extend(indata[:, 0])
