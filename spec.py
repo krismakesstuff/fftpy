@@ -4,11 +4,9 @@ from scipy import signal
 from matplotlib.animation import FuncAnimation
 from matplotlib.widgets import Button 
 import matplotlib.pyplot as plt
-import threading
 import soundfile as sf
 import os
 from datetime import datetime
-import queue
 from faster_whisper import WhisperModel
 
 # Parameters
@@ -18,7 +16,7 @@ nfft = 2048  # Number of FFT points
 buffer_duration = 0.5  # Duration of audio data to collect before sending to Whisper
 
 # Initialize plot with two subplots
-fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(8, 8))  # Increase height to accommodate two plots
+fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(6, 8))  # Increase height to accommodate two plots
 
 # Data for the first plot
 x = np.linspace(0, duration, int(sample_rate * duration))
@@ -64,7 +62,7 @@ def audio_callback(indata, frames, time, status):
 # Update all plots
 def update_plots(frame):
     global transcription_text, new_transcription_available, recording, transcription_status
-    frequencies, times, spectrogram = signal.spectrogram(y, sample_rate, nperseg=nfft)
+    frequencies, times, spectrogram = signal.spectrogram(y, sample_rate, nperseg=nfft, scaling='spectrum')
 
     # clear the plots
     ax1.clear()
