@@ -26,7 +26,7 @@ ax1.set_xlabel("Time [s]")
 ax1.set_ylabel("Amplitude")
 
 # Data for the second plot (zoomed-in version)
-ax2CutoffFrequency = 2000  # Cutoff frequency for the second plot
+ax2CutoffFrequency = 2500  # Cutoff frequency for the second plot
 line2, = ax2.plot(x, y)
 ax2.set_xlim(0, duration)
 ax2.set_ylim(0, ax2CutoffFrequency)  # Limit y-axis to frequencies lower than 10k Hz
@@ -63,18 +63,21 @@ def update_plots(frame):
     global transcription_text, new_transcription_available, recording, transcription_status
     frequencies, times, spectrogram = signal.spectrogram(y, sample_rate, nperseg=nfft, scaling='spectrum')
 
+    log_spectrum = np.log(spectrogram)
+    norm_spectrum = (log_spectrum - np.min(log_spectrum)) / (np.max(log_spectrum) - np.min(log_spectrum))
+
     # clear the plots
     ax1.clear()
     ax2.clear()
 
     # plot the full frequency range
-    ax1.pcolormesh(times, frequencies, np.log(spectrogram))
+    ax1.pcolormesh(times, frequencies, norm_spectrum)
     ax1.set_ylabel('Frequency [Hz]')
     #ax1.set_xlabel('Time [sec]')
     ax1.set_title('Full Frequency Range')
 
     # plot the frequencies lower than 10k Hz
-    ax2.pcolormesh(times, frequencies, np.log(spectrogram))
+    ax2.pcolormesh(times, frequencies, norm_spectrum)
     ax2.set_ylabel('Frequency [Hz]')
     ax2.set_xlabel('Time [sec]')
     ax2.set_xlim(0, duration)
