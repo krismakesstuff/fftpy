@@ -12,9 +12,8 @@ This is mostly a utility app to easily record and visualize signal data for furt
   - scipy
   - matplotlib
   - soundfile
-  - faster_whisper
-  - atexit
 
+##
 ## User Inputs
 
 - **Spacebar**: Toggle recording on and off. Transcribes recorded file. 

@@ -7,7 +7,6 @@ import matplotlib.pyplot as plt
 import soundfile as sf
 import os
 from datetime import datetime
-from faster_whisper import WhisperModel
 
 # Parameters
 sample_rate = 44100  # Sample rate of the microphone
