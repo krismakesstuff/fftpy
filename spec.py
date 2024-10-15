@@ -128,7 +128,7 @@ def main():
 
 
     # Start the microphone stream
-    stream = sd.InputStream(callback=audio_callback, channels=2, samplerate=sample_rate)
+    stream = sd.InputStream(callback=audio_callback, channels=1, samplerate=sample_rate)
     with stream:
         ani = FuncAnimation(fig, update_plots, interval=25)
         plt.show()
